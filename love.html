@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To My Beautiful Queen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #0a0a0a;
+        margin: 0;
+        overflow: hidden;
+      }
+      .romantic {
+        font-family: "Great Vibes", cursive;
+      }
+
+      #video-bg {
+        position: absolute;
+        /* Move the top-left corner to the center of the screen */
+        top: 50%;
+        left: 50%;
+        /* Offset the video by half its width/height to center it perfectly */
+        transform: translate(-50%, -50%);
+
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+
+        z-index: 0;
+        display: none; /* Hidden at start */
+        opacity: 0;
+        transition: opacity 2s ea
+
+      .heart {
+        position: absolute;
+        color: #ff4d4d;
+        animation: float 4s ease-in infinite;
+        opacity: 0;
+        z-index: 25;
+        pointer-events: none;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-10vh) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      .glow-text {
+        text-shadow: 0 0 15px rgba(255, 105, 180, 0.7),
+          0 0 30px rgba(255, 105, 180, 0.4);
+      }
+    </style>
+  </head>
+  <body class="text-white h-screen flex items-center justify-center">
+    <video playsinline muted loop id="video-bg">
+      <source src="vid/1745496-hd_1920_1080_30fps.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div
+      id="overlay"
+      class="absolute inset-0 bg-black bg-opacity-80 z-10 transition-all duration-1000"
+    ></div>
+
+    <div class="relative z-20 text-center p-8 max-w-2xl w-full">
+      <div id="step-1">
+        <h2 class="romantic text-5xl mb-8">I have a secret for you...</h2>
+        <button
+          onclick="showInput()"
+          class="bg-gradient-to-r from-pink-500 to-red-600 hover:from-pink-600 hover:to-red-700 text-white font-bold py-4 px-10 rounded-full shadow-[0_0_20px_rgba(255,0,0,0.5)] transform hover:scale-110 transition duration-300"
+        >
+          Open Your New Year Gift ❤️
+        </button>
+      </div>
+
+      <div id="step-2" class="hidden space-y-6">
+        <h2 class="text-3xl romantic">
+          Who is the most beautiful person in the world?
+        </h2>
+        <input
+          type="text"
+          id="userName"
+          placeholder="Type your name here..."
+          class="w-full p-4 rounded-full bg-white/10 border-2 border-pink-500/50 text-center text-2xl focus:outline-none focus:border-pink-500 transition-all"
+        />
+        <button
+          onclick="revealMessage()"
+          class="bg-white text-pink-600 font-bold py-3 px-8 rounded-full hover:bg-pink-100 transition"
+        >
+          Enter My Heart
+        </button>
+      </div>
+
+      <div id="step-3" class="hidden">
+        <h1 class="text-5xl md:text-7xl font-bold mb-2 glow-text">
+          Happy New Year,
+        </h1>
+        <h2
+          id="displayName"
+          class="text-6xl md:text-8xl romantic text-pink-400 mb-8"
+        ></h2>
+
+        <div
+          class="space-y-4 bg-black/50 p-6 rounded-2xl backdrop-blur-md border border-white/20"
+        >
+          <p class="text-xl md:text-2xl italic leading-relaxed">
+            "As the clock strikes midnight, I just want you to know that you are
+            the best thing that ever happened to me. Thank you for making every
+            moment feel like a dream. Here's to another year of us, more
+            laughter, and a love that grows stronger every single day."
+          </p>
+          <p class="text-pink-400 text-2xl font-semibold">
+            I love you more than words can say. Forever & Always. ❤️
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const video = document.getElementById("video-bg");
+      const overlay = document.getElementById("overlay");
+
+      function showInput() {
+        document.getElementById("step-1").classList.add("hidden");
+        document.getElementById("step-2").classList.remove("hidden");
+      }
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }
+
+      function revealMessage() {
+        const name = document.getElementById("userName").value;
+        if (name.trim() === "") {
+          alert("Please enter your name, my love!");
+          return;
+        }
+
+        document.getElementById("displayName").innerText = name;
+        document.getElementById("step-2").classList.add("hidden");
+        document.getElementById("step-3").classList.remove("hidden");
+
+        // 1. Show the video element
+        video.style.display = "block";
+
+        // 2. Small delay to trigger the fade-in transition
+        setTimeout(() => {
+          video.style.opacity = "0.7"; // Adjust opacity to keep text readable
+          overlay.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+        }, 50);
+
+        // 3. Play the video
+        video.play();
+
+        // 4. Start hearts
+        setInterval(createHeart, 300);
+      }
+    </script>
+  </body>
+</html>
